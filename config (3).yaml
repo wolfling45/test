@@ -1,0 +1,210 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+allow-lan: false
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ""
+#cfw-bypass:
+#  - localhost
+#  - 127.*
+#  - 10.*
+#  - 172.16.*
+#  - 172.17.*
+#  - 172.18.*
+#  - 172.19.*
+#  - 172.20.*
+#  - 172.21.*
+#  - 172.22.*
+#  - 172.23.*
+#  - 172.24.*
+#  - 172.25.*
+#  - 172.26.*
+#  - 172.27.*
+#  - 172.28.*
+#  - 172.29.*
+#  - 172.30.*
+#  - 172.31.*
+#  - 192.168.*
+#  - <local>
+#cfw-latency-timeout: 3000
+#cfw-latency-url: http://www.gstatic.com/generate_204
+#cfw-conn-break-strategy:
+#  proxy: none
+#  profile: true
+#  mode: false
+#cfw-child-process: []
+#cfw-proxies-order: default
+proxies:
+  - name: gzs
+    type: snell
+    server: gz.goutk.com
+    port: 15211
+    psk: uR4Q0KcPU9L7XAnG0A1RspW52closLP
+    obfs-opts:
+      mode: http
+  - name: sg
+    type: snell
+    server: s5.goutk.com
+    port: 15211
+    psk: uR4Q0KcPU9L7XAnG0A1RspW52closLP
+    obfs-opts:
+      mode: http
+  - name: HKSN
+    type: snell
+    server: hkt.goutk.com
+    port: 15211
+    psk: uR4Q0KcPU9L7XAnG0A1RspW52closLP
+    obfs-opts:
+      mode: http
+  - name: HK2
+    type: snell
+    server: hk2.ixx.men
+    port: 15211
+    psk: uR4Q0KcPU9L7XAnG0A1RspW52closLP
+    obfs-opts:
+      mode: http
+  - name: jp
+    type: snell
+    server: a.ixx.men
+    port: 15211
+    psk: uR4Q0KcPU9L7XAnG0A1RspW52closLP
+    obfs-opts:
+      mode: http
+proxy-groups:
+  - name: guowai
+    type: url-test
+    proxies:
+      - gzs
+      - sg
+      - jp
+      - HKSN
+      - HK2
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+rules:
+  - USER-AGENT,PayPal*,DIRECT
+  - DOMAIN-SUFFIX,paypalobjects.com,DIRECT
+  - DOMAIN-SUFFIX,paypal.com,DIRECT
+  - DOMAIN,smtp-mail.outlook.com,DIRECT
+  - DOMAIN-SUFFIX,cdn-apple.com,DIRECT
+  - #DOMAIN-SUFFIX,cdn-apple.com,guowai¤–
+  - USER-AGENT,*com.apple.mobileme.fmip1,DIRECT
+  - USER-AGENT,*WeatherFoundation*,DIRECT
+  - USER-AGENT,%E5%9C%B0%E5%9B%BE*,DIRECT // Maps
+  - USER-AGENT,%E8%AE%BE%E7%BD%AE*,DIRECT // Settings
+  - USER-AGENT,com.apple.geod*,DIRECT
+  - USER-AGENT,com.apple.Maps,DIRECT
+  - USER-AGENT,FindMyFriends*,DIRECT
+  - USER-AGENT,FindMyiPhone*,DIRECT
+  - USER-AGENT,FMDClient*,DIRECT
+  - USER-AGENT,FMFD*,DIRECT
+  - USER-AGENT,fmflocatord*,DIRECT
+  - USER-AGENT,geod*,DIRECT
+  - USER-AGENT,locationd*,DIRECT
+  - USER-AGENT,Maps*,DIRECT
+  - DOMAIN,api.smoot.apple.com,DIRECT
+  - DOMAIN,captive.apple.com,DIRECT
+  - DOMAIN,configuration.apple.com,DIRECT
+  - DOMAIN,guzzoni.apple.com,DIRECT
+  - DOMAIN,smp-device-content.apple.com,DIRECT
+  - DOMAIN,xp.apple.com,DIRECT
+  - DOMAIN-SUFFIX,ess.apple.com,DIRECT
+  - DOMAIN-SUFFIX,push-apple.com.akadns.net,DIRECT
+  - DOMAIN-SUFFIX,push.apple.com,DIRECT
+  - DOMAIN,aod.itunes.apple.com,DIRECT // Apple Music Streaming
+  - DOMAIN,api.smoot.apple.cn,DIRECT
+  - DOMAIN,gs-loc.apple.com,DIRECT // Maps
+  - DOMAIN,mvod.itunes.apple.com,DIRECT // Apple Music Streaming
+  - DOMAIN,streamingaudio.itunes.apple.com,DIRECT // Apple Music Streaming
+  - DOMAIN-SUFFIX,lcdn-locator.apple.com,DIRECT // Maps
+  - DOMAIN-SUFFIX,lcdn-registration.apple.com,DIRECT // Maps
+  - DOMAIN-SUFFIX,ls.apple.com,DIRECT // Maps
+  - DOMAIN-SUFFIX,iosapps.itunes.apple.com,DIRECT // iOS App Store Download
+  - PROCESS-NAME,storedownloadd,DIRECT // Mac App Store
+  - DOMAIN-SUFFIX,mzstatic.com,guowai¤– // App Store & iTunes Images
+  - DOMAIN-SUFFIX,aaplimg.com,guowai¤–
+  - DOMAIN-SUFFIX,apple.co,guowai¤–
+  - DOMAIN-SUFFIX,apple.com,guowai¤–
+  - DOMAIN-SUFFIX,icloud-content.com,DIRECT
+  - DOMAIN-SUFFIX,icloud.com,DIRECT
+  - DOMAIN-SUFFIX,itunes.com,guowai¤–
+  - DOMAIN-SUFFIX,itunes.apple.com,guowai¤–
+  - DOMAIN-SUFFIX,lookup-api.apple.com,guowai¤– // Dictionary
+  - DOMAIN-SUFFIX,me.com,guowai¤–
+  - USER-AGENT,com.apple.appstored*,guowai¤– // iOS App Store
+  - DOMAIN-KEYWORD,google,guowai¤–
+  - DOMAIN-SUFFIX,gstatic.com,guowai¤–
+  - DOMAIN-KEYWORD,gmail,guowai¤–
+  - DOMAIN-KEYWORD,youtube,guowai¤–
+  - DOMAIN-KEYWORD,facebook,guowai¤–
+  - DOMAIN-SUFFIX,fb.me,guowai¤–
+  - DOMAIN-SUFFIX,fbcdn.net,guowai¤–
+  - DOMAIN-KEYWORD,twitter,guowai¤–
+  - DOMAIN-KEYWORD,instagram,guowai¤–
+  - DOMAIN-KEYWORD,dropbox,guowai¤–
+  - DOMAIN-SUFFIX,twimg.com,guowai¤–
+  - DOMAIN-KEYWORD,blogspot,guowai¤–
+  - DOMAIN-SUFFIX,youtu.be,guowai¤–
+  - DOMAIN-SUFFIX,oculuscdn.com,guowai¤–
+  - DOMAIN-SUFFIX,oculus.com,guowai¤–
+  - DOMAIN-KEYWORD,whatsapp,guowai¤–
+  - PROCESS-NAME,uTorrent,DIRECT
+  - PROCESS-NAME,Thunder,DIRECT
+  - PROCESS-NAME,TeamViewer,DIRECT
+  - USER-AGENT,Speedtest*,guowai¤–
+  - USER-AGENT,MicroMessenger Client,DIRECT
+  - USER-AGENT,MobileAsset*,DIRECT
+  - USER-AGENT,WeChat*,DIRECT
+  - USER-AGENT,MApi*,DIRECT // Dianping
+  - USER-AGENT,TeamViewer*,DIRECT
+  - DOMAIN-SUFFIX,phncdn.com,guowai¤–
+  - DOMAIN-SUFFIX,staticfile.org,guowai¤–
+  - DOMAIN-SUFFIX,zimuku.cn,guowai¤–
+  - DOMAIN-SUFFIX,goo.gl,guowai¤–
+  - DOMAIN-SUFFIX,tw,guowai¤–
+  - DOMAIN,bit.ly,guowai¤–
+  - DOMAIN,blog.onemusou.com,guowai¤–
+  - DOMAIN-SUFFIX,onemusou.com,DIRECT
+  - DOMAIN-SUFFIX,ip.cn,guowai¤–
+  - DOMAIN,ip.bjango.com,DIRECT // iStat Menu IP Test
+  - #DOMAIN-SUFFIX,paypalobjects.com,DIRECT
+  - #DOMAIN-SUFFIX,paypal.com,DIRECT
+  - DOMAIN-SUFFIX,crashlytics.com,DIRECT
+  - DOMAIN-SUFFIX,aliyun.com,DIRECT
+  - DOMAIN-SUFFIX,alibaba.com,DIRECT
+  - DOMAIN-SUFFIX,alibabacloud.com,DIRECT
+  - DOMAIN-SUFFIX,alicdn.com,DIRECT
+  - DOMAIN-SUFFIX,zhihu.com,DIRECT
+  - DOMAIN-KEYWORD,alipay,DIRECT
+  - DOMAIN-KEYWORD,taobao,DIRECT
+  - DOMAIN-KEYWORD,baidu,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,edu.cn,DIRECT
+  - PROCESS-NAME,Telegram,guowai¤–
+  - USER-AGENT,Telegram*,guowai¤–
+  - USER-AGENT,ph.telegra.Telegraph*,guowai¤–
+  - DOMAIN-SUFFIX,telegra.ph,guowai¤–
+  - DOMAIN-SUFFIX,telegram.org,guowai¤–
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,91.108.4.0/22,guowai¤–,no-resolve
+  - IP-CIDR,91.108.56.0/22,guowai¤–,no-resolve
+  - IP-CIDR,109.239.140.0/24,guowai¤–,no-resolve
+  - IP-CIDR,149.154.160.0/20,guowai¤–,no-resolve
+  - IP-CIDR,194.14.177.0/24,guowai¤–,no-resolve
+  - IP-CIDR,194.68.28.0/23,guowai¤–,no-resolve
+  - IP-CIDR,194.68.30.0/24,guowai¤–,no-resolve
+  - IP-CIDR,194.132.172.0/24,guowai¤–,no-resolve
+  - IP-CIDR,194.132.162.0/24,guowai¤–,no-resolve
+  - IP-CIDR,193.182.7.0/24,guowai¤–,no-resolve
+  - IP-CIDR,47.74.226.30/32,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - GEOIP,CN,DIRECT
+  - FINAL,guowai¤–,dns-failed
+
+  
